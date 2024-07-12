@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import Button from './Button';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Detail from "./routes/Detail";
+import Home from "./routes/Home";
 
-const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
-
-  useEffect(() => {
-    fetch('https://koreanjson.com/posts/')
-      // fetch('https://jsonplaceholder.typicode.com/posts/')
-      // fetch('https://api.coinpaprika.com/v1/tickers')
-      .then(respones => respones.json())
-      .then(json => {
-        setCoins(json);
-        setLoading(false);
-      })
-  }, [])
-
+function App() {
   return (
-    <div>
-      <h1>The Coins! {loading ? '' : coins.length} </h1>
-
-      {loading ? <strong>Loading...</strong> : (
-        <select>
-          {
-            coins.map(e => {
-              return <option><p>{e.id}  {e.title}</p></option>
-            }) 
-          }   
-        </select>
-      )}
-      <Button></Button>
-    </div>
+    <Router>
+      {/* Switch는 if 같은 조건문 인듯 */}
+      <Switch> 
+        <Route path="/abot-us">
+          <h1>Hello</h1>
+        </Route>
+        <Route path="/movie/:id">
+          <Detail />
+        </Route>
+        <Route path="/">
+          <Home /> 
+        </Route>
+      </Switch>
+    </Router>
   );
-};
+}
 
 export default App;
